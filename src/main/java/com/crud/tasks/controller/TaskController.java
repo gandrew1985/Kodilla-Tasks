@@ -33,7 +33,7 @@ public class TaskController {
 
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "deleteTask")gi
+    @RequestMapping(method = RequestMethod.DELETE, value = "deleteTask")
     public void deleteTask(Long taskId) {
     }
 
