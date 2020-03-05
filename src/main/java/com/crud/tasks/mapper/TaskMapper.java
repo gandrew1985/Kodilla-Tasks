@@ -29,6 +29,4 @@ public class TaskMapper {
                 .map(t -> new TaskDto(t.getId(), t.getTitle(), t.getContent()))
                 .collect(Collectors.toList());
     }
-
-
 }
