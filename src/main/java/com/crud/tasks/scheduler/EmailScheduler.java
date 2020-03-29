@@ -25,13 +25,17 @@ public class EmailScheduler {
     @Scheduled(fixedDelay = 10000)
     public void sendInformationEmail() {
 
+        simpleEmailService.send(createInformationEmail());
+    }
+
+    private Mail createInformationEmail() {
+
         long size = taskRepository.count();
-        if (size != 1) {
-            simpleEmailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT,
-                    "Currently in database you got: " + size + " tasks", null));
-        } else {
-            simpleEmailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT,
-                    "Currently in database you got: " + size + " task", null));
-        }
+
+        Mail newMail = size != 1 ? new Mail(adminConfig.getAdminMail(), SUBJECT,
+                "Currently in database you got: " + size + " tasks", "gandrew@op.pl") :
+                new Mail(adminConfig.getAdminMail(), SUBJECT,
+                        "Currently in database you got: " + size + " task", "gandrew@op.pl");
+        return newMail;
     }
 }
