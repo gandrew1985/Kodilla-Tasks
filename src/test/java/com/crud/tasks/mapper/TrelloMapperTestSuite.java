@@ -101,6 +101,4 @@ public class TrelloMapperTestSuite {
         //Then
         assertEquals(2, trelloList.size());
     }
-
-
 }
