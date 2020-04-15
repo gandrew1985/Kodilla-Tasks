@@ -102,4 +102,31 @@ public class TrelloFacadeTestSuite {
             });
         });
     }
+
+    @Test
+    public void shouldFetchEmptyTrelloBoard() {
+        //Given
+        List<TrelloListDto> trelloLists = new ArrayList<>();
+        trelloLists.add(new TrelloListDto("1", "my_list", false));
+
+        List<TrelloBoardDto> trelloBoards = new ArrayList<>();
+        trelloBoards.add(new TrelloBoardDto("my_task", "1", trelloLists));
+
+        List<TrelloList> mappedTrelloList = new ArrayList<>();
+        mappedTrelloList.add(new TrelloList("1", "my_list", false));
+
+        List<TrelloBoard> mappedTrelloBoards = new ArrayList<>();
+        mappedTrelloBoards.add(new TrelloBoard("1", "my_task", mappedTrelloList));
+
+        when(trelloFacade.fetchTrelloBoards()).thenReturn(trelloBoards);
+        when(trelloMapper.mapToBoards(trelloBoards)).thenReturn(new ArrayList<>());
+        when(trelloMapper.mapToBoardsDto(anyList())).thenReturn(new ArrayList<>());
+        when(trelloValidator.validateTrelloBoard(mappedTrelloBoards)).thenReturn(new ArrayList<>());
+
+        //When
+        List<TrelloBoardDto> trelloBoardDto = trelloFacade.fetchTrelloBoards();
+        //Given
+        assertNotNull(trelloBoardDto);
+        assertEquals(0,trelloBoardDto.size());
+    }
 }
